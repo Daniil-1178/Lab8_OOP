@@ -1,0 +1,74 @@
+﻿<Window x:Class="Lab8.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактор" Height="450" Width="750">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
+        <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
+    </Window.CommandBindings>
+
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Button Command="ApplicationCommands.Open" ToolTip="Відкрити (Ctrl+O)">
+                <TextBlock>📂</TextBlock>
+            </Button>
+            <Button Command="ApplicationCommands.Save" ToolTip="Зберегти (Ctrl+S)">
+                <TextBlock>💾</TextBlock>
+            </Button>
+
+            <Separator />
+
+            <Button Click="btnInsertImage_Click" ToolTip="Вставити зображення">
+                <TextBlock>🖼️</TextBlock>
+            </Button>
+
+            <Separator />
+
+            <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold" ToolTip="Жирний (Ctrl+B)">
+                <TextBlock FontWeight="Bold">B</TextBlock>
+            </ToggleButton>
+            <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic" ToolTip="Курсив (Ctrl+I)">
+                <TextBlock FontStyle="Italic">I</TextBlock>
+            </ToggleButton>
+            <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline" ToolTip="Підкреслений (Ctrl+U)">
+                <TextBlock TextDecorations="Underline">U</TextBlock>
+            </ToggleButton>
+
+            <Separator />
+
+            <RadioButton x:Name="btnLeft" Command="EditingCommands.AlignLeft" ToolTip="Зліва (Ctrl+L)" 
+                         Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}">
+                <TextBlock>▤</TextBlock>
+            </RadioButton>
+            <RadioButton x:Name="btnCenter" Command="EditingCommands.AlignCenter" ToolTip="По центру (Ctrl+E)" 
+                         Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}">
+                <TextBlock>▧</TextBlock>
+            </RadioButton>
+            <RadioButton x:Name="btnRight" Command="EditingCommands.AlignRight" ToolTip="Справа (Ctrl+R)" 
+                         Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}">
+                <TextBlock>▥</TextBlock>
+            </RadioButton>
+            <RadioButton x:Name="btnJustify" Command="EditingCommands.AlignJustify" ToolTip="По ширині (Ctrl+J)" 
+                         Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}">
+                <TextBlock>≣</TextBlock>
+            </RadioButton>
+
+            <Separator />
+
+            <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" ToolTip="Шрифт" />
+            <ComboBox Name="cmbFontSize" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged" ToolTip="Розмір" />
+        </ToolBar>
+
+        <RichTextBox Name="rtbEditor" 
+                     SelectionChanged="rtbEditor_SelectionChanged" 
+                     SpellCheck.IsEnabled="True" 
+                     VerticalScrollBarVisibility="Auto">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
+    </DockPanel>
+</Window>
